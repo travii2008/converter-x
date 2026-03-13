@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Universal Converter</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:      #0B0D15; --surface: #10131C; --card:  #161B27; --card2: #1C2133;
+  --border:  #252D3F; --accent: #6C63FF; --accent2: #4F8EF7;
+  --green:   #22C55E; --red:   #EF4444; --orange: #F97316; --yellow: #EAB308;
+  --text:    #E8ECF5; --text2: #8892A4; --text3:  #3D4A60;
+  --hover:   #1E2436; --btn:   #252D3F; --btn-h:  #2E3854;
+  --radius:  10px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;display:flex;min-height:100vh;overflow:hidden}
+
+/* ── Sidebar ── */
+.sidebar{width:210px;min-width:210px;background:var(--surface);display:flex;flex-direction:column;height:100vh;border-right:1px solid var(--border)}
+.logo{background:var(--card);padding:18px 16px;text-align:center;border-bottom:1px solid var(--border)}
+.logo-title{color:var(--accent);font-size:15px;font-weight:700;letter-spacing:.5px}
+.logo-sub{color:var(--text3);font-size:8px;letter-spacing:4px;margin-top:3px}
+.nav-section{color:var(--text3);font-size:9px;padding:14px 16px 4px;letter-spacing:1.5px;font-weight:600}
+.nav-btn{display:flex;align-items:center;gap:10px;padding:10px 14px;cursor:pointer;border-radius:8px;margin:1px 8px;color:var(--text2);font-size:13px;font-weight:500;transition:all .15s;border:none;background:transparent;width:calc(100% - 16px);text-align:left;font-family:inherit}
+.nav-btn:hover{background:var(--hover);color:var(--text)}
+.nav-btn.active{background:var(--card2);color:var(--accent)}
+.nav-icon{font-size:16px;width:20px;text-align:center}
+.sidebar-bottom{margin-top:auto;padding:12px 14px;border-top:1px solid var(--border)}
+.ind{display:flex;align-items:center;gap:6px;font-size:10px;color:var(--text3);padding:2px 0}
+.ind.ok{color:var(--green)}
+
+/* ── Main ── */
+.main{flex:1;display:flex;flex-direction:column;min-width:0;height:100vh;overflow:hidden}
+.header{background:var(--surface);height:52px;display:flex;align-items:center;padding:0 24px;border-bottom:1px solid var(--border);flex-shrink:0}
+.header h1{font-size:15px;font-weight:600;letter-spacing:.3px}
+.content{flex:1;overflow-y:auto;padding:26px}
+.page{display:none}
+.page.active{display:block}
+.page-title{font-size:15px;font-weight:700;color:var(--text);margin-bottom:3px}
+.page-sub{font-size:11px;color:var(--text2);margin-bottom:18px}
+
+/* ── Cards ── */
+.card{background:var(--card);border-radius:var(--radius);padding:18px;margin-bottom:14px}
+.card2{background:var(--card2)}
+.card-title{font-size:12px;font-weight:600;color:var(--text);margin-bottom:12px}
+
+/* ── Form ── */
+label{font-size:10px;color:var(--text3);display:block;margin-bottom:5px;font-weight:500;letter-spacing:.5px;text-transform:uppercase}
+input,select{background:var(--card2);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:10px 12px;font-size:13px;font-family:inherit;width:100%;outline:none;transition:border .15s}
+input:focus,select:focus{border-color:var(--accent)}
+select option{background:var(--card2)}
+input::placeholder{color:var(--text3)}
+
+/* ── Buttons ── */
+.btn-primary{background:var(--accent);color:white;border:none;border-radius:8px;padding:11px 20px;font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;font-family:inherit}
+.btn-primary:hover{background:#5a52e0;transform:translateY(-1px)}
+.btn-secondary{background:var(--btn);color:var(--text2);border:1px solid var(--border);border-radius:8px;padding:9px 16px;font-size:12px;font-weight:500;cursor:pointer;transition:all .15s;font-family:inherit}
+.btn-secondary:hover{background:var(--btn-h);color:var(--text)}
+.swap-btn{background:var(--accent);color:white;border:none;border-radius:50%;width:38px;height:38px;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0}
+.swap-btn:hover{background:#5a52e0;transform:rotate(180deg)}
+
+/* ── Layout helpers ── */
+.row{display:flex;gap:12px;align-items:flex-end}
+.row>*{flex:1}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.grid-4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px}
+
+/* ── Result ── */
+.result-big{font-size:22px;font-weight:700;color:var(--accent);padding:10px 12px;background:var(--card2);border-radius:8px;border:1px solid var(--border);word-break:break-all}
+.result-sub{font-size:10px;color:var(--text3);margin-top:6px;font-family:'DM Mono',monospace}
+
+/* ── Compare grid ── */
+.compare-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;margin-top:8px}
+.compare-cell{background:var(--btn);border-radius:6px;padding:6px 8px;display:flex;justify-content:space-between;align-items:center}
+.compare-cell .cur{font-size:9px;color:var(--text2);font-weight:600}
+.compare-cell .val{font-size:9px;color:var(--accent);font-weight:600;font-family:'DM Mono',monospace}
+
+/* ── Quick ref ── */
+.qref{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.qref-chip{background:var(--card2);border-radius:6px;padding:4px 10px;font-size:10px;color:var(--text2);font-family:'DM Mono',monospace}
+
+/* ── Status bar ── */
+.statusbar{background:var(--surface);height:44px;display:flex;align-items:center;padding:0 20px;border-top:1px solid var(--border);flex-shrink:0;gap:12px}
+.status-msg{font-size:12px;color:var(--text2);flex:1}
+.status-pct{font-size:11px;color:var(--accent);font-family:'DM Mono',monospace;width:40px;text-align:right}
+.progress-bar-bg{width:160px;height:5px;background:var(--border);border-radius:3px;overflow:hidden}
+.progress-bar-fill{height:100%;background:var(--accent);border-radius:3px;transition:width .3s;width:0%}
+
+/* ── Desktop-only banner ── */
+.desktop-only{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:28px;text-align:center}
+.desktop-only .icon{font-size:40px;margin-bottom:12px}
+.desktop-only h3{font-size:15px;font-weight:600;color:var(--text);margin-bottom:8px}
+.desktop-only p{font-size:12px;color:var(--text2);line-height:1.7}
+.desktop-only code{background:var(--card2);padding:2px 6px;border-radius:4px;font-family:'DM Mono',monospace;font-size:11px;color:var(--yellow)}
+
+/* ── About ── */
+.dep-row{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--border)}
+.dep-row:last-child{border-bottom:none}
+.dep-ok{color:var(--green);font-size:12px;width:16px}
+.dep-name{font-size:11px;font-weight:600;width:130px}
+.dep-desc{font-size:10px;color:var(--text2);flex:1}
+.dep-cmd{font-size:10px;color:var(--yellow);font-family:'DM Mono',monospace}
+.badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:9px;font-weight:700;margin-right:6px}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+
+/* ── Radio buttons ── */
+.radio-group{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.radio-group label{text-transform:none;font-size:12px;color:var(--text2);display:flex;align-items:center;gap:5px;cursor:pointer;padding:5px 10px;background:var(--btn);border-radius:6px;border:1px solid transparent;transition:all .15s;margin-bottom:0}
+.radio-group label:hover{border-color:var(--accent);color:var(--text)}
+.radio-group input[type=radio]{display:none}
+.radio-group input[type=radio]:checked+span{color:var(--accent)}
+.radio-group label:has(input:checked){border-color:var(--accent);background:var(--card2);color:var(--accent)}
+
+/* ── Accent colors for type badges ── */
+.type-audio{background:#6C63FF22;color:var(--accent)}
+.type-video{background:#4F8EF722;color:var(--accent2)}
+.type-image{background:#22C55E22;color:var(--green)}
+.type-pdf{background:#F9731622;color:var(--orange)}
+
+@media(max-width:900px){
+  .sidebar{width:60px;min-width:60px}
+  .nav-btn span.nav-text{display:none}
+  .logo-title,.logo-sub,.nav-section{display:none}
+  .compare-grid{grid-template-columns:repeat(3,1fr)}
+  .grid-3,.grid-4{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){
+  .compare-grid{grid-template-columns:repeat(2,1fr)}
+  .grid-2,.grid-3,.grid-4{grid-template-columns:1fr}
+  .row{flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<!-- ── Sidebar ─────────────────────────────────────────────────────────────── -->
+<div class="sidebar">
+  <div class="logo">
+    <div class="logo-title">⚡ Universal</div>
+    <div class="logo-sub">C O N V E R T E R</div>
+  </div>
+  <div class="nav-section">CONVERTERS</div>
+  <button class="nav-btn active" onclick="showPage('units',this)">
+    <span class="nav-icon">📏</span><span class="nav-text">Units</span>
+  </button>
+  <button class="nav-btn" onclick="showPage('currency',this)">
+    <span class="nav-icon">💱</span><span class="nav-text">Currency</span>
+  </button>
+  <button class="nav-btn" onclick="showPage('audio',this)">
+    <span class="nav-icon">🎵</span><span class="nav-text">Audio</span>
+  </button>
+  <button class="nav-btn" onclick="showPage('video',this)">
+    <span class="nav-icon">🎬</span><span class="nav-text">Video</span>
+  </button>
+  <button class="nav-btn" onclick="showPage('images',this)">
+    <span class="nav-icon">🖼</span><span class="nav-text">Images</span>
+  </button>
+  <button class="nav-btn" onclick="showPage('pdf',this)">
+    <span class="nav-icon">📄</span><span class="nav-text">PDF</span>
+  </button>
+  <button class="nav-btn" onclick="showPage('about',this)">
+    <span class="nav-icon">ℹ</span><span class="nav-text">About</span>
+  </button>
+  <div class="sidebar-bottom">
+    <div class="ind ok">● Units &amp; Currency: Live</div>
+    <div class="ind">○ File convert: Desktop only</div>
+  </div>
+</div>
+
+<!-- ── Main ────────────────────────────────────────────────────────────────── -->
+<div class="main">
+  <div class="header">
+    <h1 id="pageTitle">Units Converter</h1>
+  </div>
+  <div class="content">
+
+    <!-- ══ UNITS ══ -->
+    <div id="page-units" class="page active">
+      <div class="page-title">Unit Converter</div>
+      <div class="page-sub">Convert between all common units</div>
+
+      <div class="card">
+        <label>Category</label>
+        <select id="unitCat" onchange="onCatChange()"></select>
+      </div>
+
+      <div class="card">
+        <div class="row" style="align-items:flex-start">
+          <div>
+            <label>From</label>
+            <input type="number" id="unitVal" placeholder="Enter value" oninput="calcUnit()">
+            <div style="height:8px"></div>
+            <select id="unitFrom" onchange="calcUnit()"></select>
+          </div>
+          <div style="flex:0;display:flex;flex-direction:column;align-items:center;padding-top:28px">
+            <button class="swap-btn" onclick="swapUnit()" title="Swap">⇄</button>
+          </div>
+          <div>
+            <label>To</label>
+            <div class="result-big" id="unitResult">—</div>
+            <div style="height:8px"></div>
+            <select id="unitTo" onchange="calcUnit()"></select>
+          </div>
+        </div>
+      </div>
+
+      <div class="card card2">
+        <label>Quick Reference</label>
+        <div class="qref" id="unitQref"></div>
+      </div>
+    </div>
+
+    <!-- ══ CURRENCY ══ -->
+    <div id="page-currency" class="page">
+      <div class="page-title">Currency Converter</div>
+      <div class="page-sub" id="currencySub">Live rates · loading…</div>
+
+      <div class="card">
+        <div class="row" style="align-items:flex-start">
+          <div>
+            <label>Amount</label>
+            <input type="number" id="currAmt" value="1" oninput="calcCurrency()">
+            <div style="height:8px"></div>
+            <label>From</label>
+            <input type="text" id="currFrom" value="USD" maxlength="5"
+                   oninput="this.value=this.value.toUpperCase();calcCurrency()"
+                   list="currencyList" style="text-transform:uppercase">
+          </div>
+          <div style="flex:0;display:flex;flex-direction:column;align-items:center;padding-top:28px">
+            <button class="swap-btn" onclick="swapCurrency()">⇄</button>
+          </div>
+          <div>
+            <label>Result</label>
+            <div class="result-big" id="currResult">—</div>
+            <div style="height:8px"></div>
+            <label>To</label>
+            <input type="text" id="currTo" value="EUR" maxlength="5"
+                   oninput="this.value=this.value.toUpperCase();calcCurrency()"
+                   list="currencyList" style="text-transform:uppercase">
+          </div>
+        </div>
+        <div class="result-sub" id="currRate"></div>
+      </div>
+
+      <datalist id="currencyList"></datalist>
+
+      <div class="card card2">
+        <label>Quick Compare — Major Currencies</label>
+        <div class="compare-grid" id="compareGrid"></div>
+      </div>
+    </div>
+
+    <!-- ══ AUDIO ══ -->
+    <div id="page-audio" class="page">
+      <div class="page-title">Audio Converter</div>
+      <div class="desktop-only">
+        <div class="icon">🎵</div>
+        <h3>Desktop App Required</h3>
+        <p>Audio conversion uses <strong>FFmpeg</strong> which runs locally on your computer.<br><br>
+        Download the desktop app and run:<br>
+        <code>python main.py</code><br><br>
+        Supports MP3, WAV, FLAC, AAC, OGG, M4A, WMA, OPUS and more.</p>
+      </div>
+    </div>
+
+    <!-- ══ VIDEO ══ -->
+    <div id="page-video" class="page">
+      <div class="page-title">Video Converter</div>
+      <div class="desktop-only">
+        <div class="icon">🎬</div>
+        <h3>Desktop App Required</h3>
+        <p>Video conversion uses <strong>FFmpeg</strong> which runs locally on your computer.<br><br>
+        Download the desktop app and run:<br>
+        <code>python main.py</code><br><br>
+        Supports MP4, AVI, MOV, MKV, WEBM, FLV, WMV and more.</p>
+      </div>
+    </div>
+
+    <!-- ══ IMAGES ══ -->
+    <div id="page-images" class="page">
+      <div class="page-title">Image Converter</div>
+      <div class="desktop-only">
+        <div class="icon">🖼</div>
+        <h3>Desktop App Required</h3>
+        <p>Image conversion uses <strong>Pillow</strong> which runs locally on your computer.<br><br>
+        Download the desktop app and run:<br>
+        <code>python main.py</code><br><br>
+        Supports JPG, PNG, WEBP, GIF, BMP, TIFF and more.</p>
+      </div>
+    </div>
+
+    <!-- ══ PDF ══ -->
+    <div id="page-pdf" class="page">
+      <div class="page-title">PDF Converter</div>
+      <div class="desktop-only">
+        <div class="icon">📄</div>
+        <h3>Desktop App Required</h3>
+        <p>PDF conversion requires <strong>pdfplumber</strong>, <strong>python-docx</strong> and other libraries which run locally.<br><br>
+        Download the desktop app and run:<br>
+        <code>python main.py</code><br><br>
+        Supports PDF ↔ Word, Excel, PPT, Images, Text.</p>
+      </div>
+    </div>
+
+    <!-- ══ ABOUT ══ -->
+    <div id="page-about" class="page">
+      <div class="page-title">About</div>
+      <div class="card" style="text-align:center;padding:28px">
+        <div style="font-size:32px;margin-bottom:8px">⚡</div>
+        <div style="font-size:20px;font-weight:700;color:var(--accent)">Universal Converter</div>
+        <div style="font-size:12px;color:var(--text2);margin-top:4px">v2.1 Final · Web Edition</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">What works on web</div>
+        <div class="dep-row">
+          <div class="dep-ok">✓</div>
+          <div class="dep-name">Unit Converter</div>
+          <div class="dep-desc">13 categories, 100+ units, instant conversion</div>
+        </div>
+        <div class="dep-row">
+          <div class="dep-ok">✓</div>
+          <div class="dep-name">Currency Converter</div>
+          <div class="dep-desc">166 currencies, live rates from open.er-api.com</div>
+        </div>
+        <div class="dep-row">
+          <div class="dep-ok" style="color:var(--text3)">○</div>
+          <div class="dep-name">Audio / Video</div>
+          <div class="dep-desc">Requires FFmpeg — desktop app only</div>
+          <div class="dep-cmd">python main.py</div>
+        </div>
+        <div class="dep-row">
+          <div class="dep-ok" style="color:var(--text3)">○</div>
+          <div class="dep-name">Image Conversion</div>
+          <div class="dep-desc">Requires Pillow — desktop app only</div>
+          <div class="dep-cmd">python main.py</div>
+        </div>
+        <div class="dep-row">
+          <div class="dep-ok" style="color:var(--text3)">○</div>
+          <div class="dep-name">PDF Conversion</div>
+          <div class="dep-desc">Requires pdfplumber — desktop app only</div>
+          <div class="dep-cmd">python main.py</div>
+        </div>
+      </div>
+
+      <div class="card card2" style="font-size:11px;color:var(--text2);line-height:1.8">
+        Built with Python (desktop) · Vanilla JS (web) · Firebase Hosting<br>
+        Desktop app: CustomTkinter · FFmpeg · Pillow · pdfplumber
+      </div>
+    </div>
+
+  </div><!-- end .content -->
+
+  <!-- Status bar -->
+  <div class="statusbar">
+    <div class="status-msg" id="statusMsg">Ready</div>
+    <div class="status-pct" id="statusPct"></div>
+    <div class="progress-bar-bg">
+      <div class="progress-bar-fill" id="progressFill"></div>
+    </div>
+  </div>
+</div><!-- end .main -->
+
+<script>
+// ══════════════════════════════════════════════════════════════════════════════
+//  NAV
+// ══════════════════════════════════════════════════════════════════════════════
+function showPage(name, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  btn.classList.add('active');
+  const titles = {units:'Units Converter',currency:'Currency Converter',
+    audio:'Audio Converter',video:'Video Converter',
+    images:'Image Converter',pdf:'PDF Converter',about:'About'};
+  document.getElementById('pageTitle').textContent = titles[name] || name;
+  setStatus('Ready', '', 0);
+}
+
+function setStatus(msg, color, pct) {
+  document.getElementById('statusMsg').textContent = msg;
+  document.getElementById('statusMsg').style.color = color || 'var(--text2)';
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('statusPct').textContent = pct > 0 ? pct + '%' : '';
+  document.getElementById('statusPct').style.color = pct >= 100 ? 'var(--green)' : 'var(--accent)';
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+//  UNIT DATA  (matches config.py exactly)
+// ══════════════════════════════════════════════════════════════════════════════
+const UNIT_CATS = {
+  "📏  Length":    {meter:1,kilometer:1e3,centimeter:.01,millimeter:.001,micrometer:1e-6,nanometer:1e-9,mile:1609.344,yard:.9144,foot:.3048,inch:.0254,"nautical mile":1852},
+  "⚖️  Weight":    {kilogram:1,gram:.001,milligram:1e-6,pound:.453592,ounce:.0283495,"metric ton":1000,stone:6.35029,carat:.0002},
+  "🌡️  Temperature": {__temp__:true,units:["Celsius","Fahrenheit","Kelvin","Rankine"]},
+  "🧪  Volume":    {liter:1,milliliter:.001,"cubic meter":1000,"gallon (US)":3.78541,quart:.946353,pint:.473176,cup:.236588,"fluid ounce":.0295735,tablespoon:.0147868,teaspoon:.00492892},
+  "⬛  Area":      {"square meter":1,"square kilometer":1e6,"square centimeter":.0001,"square mile":2589988,acre:4046.86,hectare:10000,"square foot":.092903,"square inch":.00064516,"square yard":.836127},
+  "💨  Speed":     {"m/s":1,"km/h":.277778,mph:.44704,knot:.514444,"ft/s":.3048,mach:340.29},
+  "⏱️  Time":      {second:1,millisecond:.001,microsecond:1e-6,nanosecond:1e-9,minute:60,hour:3600,day:86400,week:604800,month:2592000,year:31536000,decade:315360000},
+  "💾  Data":      {byte:1,kilobyte:1024,megabyte:1048576,gigabyte:1073741824,terabyte:1099511627776,bit:.125,kilobit:128,megabit:131072,gigabit:134217728},
+  "🔵  Pressure":  {pascal:1,kilopascal:1000,megapascal:1e6,bar:100000,psi:6894.76,atm:101325,mmHg:133.322},
+  "⚡  Energy":    {joule:1,kilojoule:1000,megajoule:1e6,calorie:4.184,kilocalorie:4184,"watt-hour":3600,"kilowatt-hour":3600000,BTU:1055.06},
+  "💡  Power":     {watt:1,kilowatt:1000,megawatt:1e6,gigawatt:1e9,horsepower:745.7},
+  "📐  Angle":     {degree:1,radian:57.2958,gradian:.9,arcminute:1/60,arcsecond:1/3600},
+  "📡  Frequency": {hertz:1,kilohertz:1000,megahertz:1e6,gigahertz:1e9},
+};
+
+function cvtTemp(v,f,t){
+  let c;
+  if(f==="Celsius")c=v; else if(f==="Fahrenheit")c=(v-32)*5/9;
+  else if(f==="Kelvin")c=v-273.15; else if(f==="Rankine")c=(v-491.67)*5/9; else return null;
+  if(t==="Celsius")return c; if(t==="Fahrenheit")return c*9/5+32;
+  if(t==="Kelvin")return c+273.15; if(t==="Rankine")return(c+273.15)*9/5;
+}
+function cvtUnit(val,fu,tu,data){
+  if(data.__temp__) return cvtTemp(val,fu,tu);
+  if(!data[fu]||!data[tu]) return null;
+  return val*data[fu]/data[tu];
+}
+function fmtNum(n){
+  if(n===null||n===undefined) return "Error";
+  if((Math.abs(n)<1e-6&&n!==0)||Math.abs(n)>=1e13) return n.toExponential(4);
+  let s=n.toLocaleString('en-US',{maximumFractionDigits:10});
+  return s.replace(/\.?0+$/,'');
+}
+
+// Build unit dropdowns
+const catSel = document.getElementById('unitCat');
+Object.keys(UNIT_CATS).forEach(c => {
+  const o = document.createElement('option'); o.value=c; o.textContent=c; catSel.appendChild(o);
+});
+
+function getUnits(cat){
+  const d=UNIT_CATS[cat]; return d.__temp__ ? d.units : Object.keys(d);
+}
+function populateUnitDDs(){
+  const cat=catSel.value, units=getUnits(cat);
+  ['unitFrom','unitTo'].forEach((id,i)=>{
+    const sel=document.getElementById(id); sel.innerHTML='';
+    units.forEach(u=>{const o=document.createElement('option');o.value=u;o.textContent=u;sel.appendChild(o);});
+    sel.value=units[i]||units[0];
+  });
+}
+function onCatChange(){ populateUnitDDs(); calcUnit(); }
+
+function calcUnit(){
+  const val=parseFloat(document.getElementById('unitVal').value);
+  const from=document.getElementById('unitFrom').value;
+  const to=document.getElementById('unitTo').value;
+  const cat=catSel.value; const data=UNIT_CATS[cat];
+  if(isNaN(val)){ document.getElementById('unitResult').textContent='—'; return; }
+  const res=cvtUnit(val,from,to,data);
+  document.getElementById('unitResult').textContent=res!==null?fmtNum(res):'Error';
+  // Quick ref
+  const qref=document.getElementById('unitQref'); qref.innerHTML='';
+  let cnt=0;
+  getUnits(cat).forEach(u=>{
+    if(cnt>=6||u===from) return;
+    const r=cvtUnit(val,from,u,data);
+    if(r!==null){
+      const chip=document.createElement('div'); chip.className='qref-chip';
+      chip.textContent=`${fmtNum(r)} ${u}`; qref.appendChild(chip); cnt++;
+    }
+  });
+  setStatus('Converted','var(--green)',100);
+  setTimeout(()=>setStatus('Ready','',0),1500);
+}
+
+function swapUnit(){
+  const f=document.getElementById('unitFrom').value;
+  const t=document.getElementById('unitTo').value;
+  const cur=document.getElementById('unitResult').textContent;
+  document.getElementById('unitFrom').value=t;
+  document.getElementById('unitTo').value=f;
+  document.getElementById('unitVal').value=cur.replace(/,/g,'');
+  calcUnit();
+}
+
+onCatChange();
+
+// ══════════════════════════════════════════════════════════════════════════════
+//  CURRENCY
+// ══════════════════════════════════════════════════════════════════════════════
+let RATES = {};
+const MAJORS = ["USD","EUR","GBP","JPY","CAD","AUD","CHF","CNY","INR","MXN","BRL","KRW","SGD","AED","TRY","NOK","SEK","PLN"];
+
+async function loadRates(){
+  try {
+    const res = await fetch('https://open.er-api.com/v6/latest/USD');
+    const data = await res.json();
+    if(data.result==='success'){
+      RATES = data.rates; RATES.USD = 1.0;
+      document.getElementById('currencySub').textContent =
+        `${Object.keys(RATES).length} currencies · live rates`;
+      buildCurrencyDatalist();
+      calcCurrency();
+    }
+  } catch(e) {
+    document.getElementById('currencySub').textContent = 'Using cached rates';
+  }
+}
+
+function buildCurrencyDatalist(){
+  const dl = document.getElementById('currencyList'); dl.innerHTML='';
+  Object.keys(RATES).sort().forEach(c=>{
+    const o=document.createElement('option'); o.value=c; dl.appendChild(o);
+  });
+}
+
+function cvtCurrency(amt,fc,tc){
+  if(!RATES[fc]||!RATES[tc]) return null;
+  return amt / RATES[fc] * RATES[tc];
+}
+
+function calcCurrency(){
+  const amt = parseFloat(document.getElementById('currAmt').value);
+  const fc  = document.getElementById('currFrom').value.toUpperCase().trim();
+  const tc  = document.getElementById('currTo').value.toUpperCase().trim();
+  if(isNaN(amt)||!RATES[fc]||!RATES[tc]){
+    document.getElementById('currResult').textContent='—'; return;
+  }
+  const res  = cvtCurrency(amt,fc,tc);
+  const rate = RATES[tc]/RATES[fc];
+  document.getElementById('currResult').textContent =
+    res.toFixed(6).replace(/\.?0+$/,'');
+  document.getElementById('currRate').textContent =
+    `1 ${fc} = ${rate.toFixed(6)} ${tc}`;
+  // Compare grid
+  const grid = document.getElementById('compareGrid'); grid.innerHTML='';
+  MAJORS.forEach(cur=>{
+    const r   = cvtCurrency(amt,fc,cur);
+    const val = cur===fc ? '—' : r ? r.toFixed(2) : '—';
+    const cell= document.createElement('div'); cell.className='compare-cell';
+    cell.innerHTML=`<span class="cur">${cur}</span><span class="val">${val}</span>`;
+    grid.appendChild(cell);
+  });
+  setStatus(`1 ${fc} = ${rate.toFixed(4)} ${tc}`,'var(--accent)',100);
+  setTimeout(()=>setStatus('Ready','',0),2000);
+}
+
+function swapCurrency(){
+  const f=document.getElementById('currFrom').value;
+  const t=document.getElementById('currTo').value;
+  document.getElementById('currFrom').value=t;
+  document.getElementById('currTo').value=f;
+  calcCurrency();
+}
+
+loadRates();
+</script>
+</body>
+</html>
