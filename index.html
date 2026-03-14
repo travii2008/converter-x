@@ -6,191 +6,133 @@
 <title>Universal Converter</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg:      #0B0D15; --surface: #10131C; --card:  #161B27; --card2: #1C2133;
-  --border:  #252D3F; --accent: #6C63FF; --accent2: #4F8EF7;
-  --green:   #22C55E; --red:   #EF4444; --orange: #F97316; --yellow: #EAB308;
-  --text:    #E8ECF5; --text2: #8892A4; --text3:  #3D4A60;
-  --hover:   #1E2436; --btn:   #252D3F; --btn-h:  #2E3854;
-  --radius:  10px;
+:root{
+  --bg:#0B0D15;--surface:#10131C;--card:#161B27;--card2:#1C2133;
+  --border:#252D3F;--accent:#6C63FF;--accent2:#4F8EF7;
+  --green:#22C55E;--red:#EF4444;--orange:#F97316;--yellow:#EAB308;
+  --text:#E8ECF5;--text2:#8892A4;--text3:#3D4A60;
+  --hover:#1E2436;--btn:#252D3F;--btn-h:#2E3854;--radius:10px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;display:flex;min-height:100vh;overflow:hidden}
-
-/* ── Sidebar ── */
 .sidebar{width:210px;min-width:210px;background:var(--surface);display:flex;flex-direction:column;height:100vh;border-right:1px solid var(--border)}
 .logo{background:var(--card);padding:18px 16px;text-align:center;border-bottom:1px solid var(--border)}
-.logo-title{color:var(--accent);font-size:15px;font-weight:700;letter-spacing:.5px}
+.logo-title{color:var(--accent);font-size:15px;font-weight:700}
 .logo-sub{color:var(--text3);font-size:8px;letter-spacing:4px;margin-top:3px}
 .nav-section{color:var(--text3);font-size:9px;padding:14px 16px 4px;letter-spacing:1.5px;font-weight:600}
 .nav-btn{display:flex;align-items:center;gap:10px;padding:10px 14px;cursor:pointer;border-radius:8px;margin:1px 8px;color:var(--text2);font-size:13px;font-weight:500;transition:all .15s;border:none;background:transparent;width:calc(100% - 16px);text-align:left;font-family:inherit}
 .nav-btn:hover{background:var(--hover);color:var(--text)}
 .nav-btn.active{background:var(--card2);color:var(--accent)}
-.nav-icon{font-size:16px;width:20px;text-align:center}
+.nav-icon{font-size:15px;width:20px;text-align:center}
 .sidebar-bottom{margin-top:auto;padding:12px 14px;border-top:1px solid var(--border)}
-.ind{display:flex;align-items:center;gap:6px;font-size:10px;color:var(--text3);padding:2px 0}
+.ind{font-size:10px;color:var(--text3);padding:2px 0}
 .ind.ok{color:var(--green)}
-
-/* ── Main ── */
 .main{flex:1;display:flex;flex-direction:column;min-width:0;height:100vh;overflow:hidden}
 .header{background:var(--surface);height:52px;display:flex;align-items:center;padding:0 24px;border-bottom:1px solid var(--border);flex-shrink:0}
-.header h1{font-size:15px;font-weight:600;letter-spacing:.3px}
+.header h1{font-size:15px;font-weight:600}
 .content{flex:1;overflow-y:auto;padding:26px}
-.page{display:none}
-.page.active{display:block}
-.page-title{font-size:15px;font-weight:700;color:var(--text);margin-bottom:3px}
+.page{display:none}.page.active{display:block}
+.page-title{font-size:15px;font-weight:700;margin-bottom:3px}
 .page-sub{font-size:11px;color:var(--text2);margin-bottom:18px}
-
-/* ── Cards ── */
 .card{background:var(--card);border-radius:var(--radius);padding:18px;margin-bottom:14px}
 .card2{background:var(--card2)}
-.card-title{font-size:12px;font-weight:600;color:var(--text);margin-bottom:12px}
-
-/* ── Form ── */
 label{font-size:10px;color:var(--text3);display:block;margin-bottom:5px;font-weight:500;letter-spacing:.5px;text-transform:uppercase}
 input,select{background:var(--card2);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:10px 12px;font-size:13px;font-family:inherit;width:100%;outline:none;transition:border .15s}
 input:focus,select:focus{border-color:var(--accent)}
 select option{background:var(--card2)}
 input::placeholder{color:var(--text3)}
-
-/* ── Buttons ── */
-.btn-primary{background:var(--accent);color:white;border:none;border-radius:8px;padding:11px 20px;font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;font-family:inherit}
-.btn-primary:hover{background:#5a52e0;transform:translateY(-1px)}
-.btn-secondary{background:var(--btn);color:var(--text2);border:1px solid var(--border);border-radius:8px;padding:9px 16px;font-size:12px;font-weight:500;cursor:pointer;transition:all .15s;font-family:inherit}
-.btn-secondary:hover{background:var(--btn-h);color:var(--text)}
+.btn{border:none;border-radius:8px;padding:11px 20px;font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;font-family:inherit;width:100%}
+.btn-primary{background:var(--accent);color:white}.btn-primary:hover{background:#5a52e0}
+.btn-secondary{background:var(--btn);color:var(--text2);border:1px solid var(--border)}.btn-secondary:hover{background:var(--btn-h);color:var(--text)}
+.btn-danger{background:var(--red);color:white}.btn-danger:hover{background:#cc2222}
 .swap-btn{background:var(--accent);color:white;border:none;border-radius:50%;width:38px;height:38px;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0}
 .swap-btn:hover{background:#5a52e0;transform:rotate(180deg)}
-
-/* ── Layout helpers ── */
-.row{display:flex;gap:12px;align-items:flex-end}
-.row>*{flex:1}
+.row{display:flex;gap:12px;align-items:flex-end}.row>*{flex:1}
 .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
-.grid-4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px}
-
-/* ── Result ── */
-.result-big{font-size:22px;font-weight:700;color:var(--accent);padding:10px 12px;background:var(--card2);border-radius:8px;border:1px solid var(--border);word-break:break-all}
+.result-big{font-size:22px;font-weight:700;color:var(--accent);padding:10px 12px;background:var(--card2);border-radius:8px;border:1px solid var(--border);word-break:break-all;min-height:46px;display:flex;align-items:center}
 .result-sub{font-size:10px;color:var(--text3);margin-top:6px;font-family:'DM Mono',monospace}
-
-/* ── Compare grid ── */
 .compare-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;margin-top:8px}
 .compare-cell{background:var(--btn);border-radius:6px;padding:6px 8px;display:flex;justify-content:space-between;align-items:center}
 .compare-cell .cur{font-size:9px;color:var(--text2);font-weight:600}
 .compare-cell .val{font-size:9px;color:var(--accent);font-weight:600;font-family:'DM Mono',monospace}
-
-/* ── Quick ref ── */
 .qref{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
 .qref-chip{background:var(--card2);border-radius:6px;padding:4px 10px;font-size:10px;color:var(--text2);font-family:'DM Mono',monospace}
-
-/* ── Status bar ── */
 .statusbar{background:var(--surface);height:44px;display:flex;align-items:center;padding:0 20px;border-top:1px solid var(--border);flex-shrink:0;gap:12px}
 .status-msg{font-size:12px;color:var(--text2);flex:1}
 .status-pct{font-size:11px;color:var(--accent);font-family:'DM Mono',monospace;width:40px;text-align:right}
-.progress-bar-bg{width:160px;height:5px;background:var(--border);border-radius:3px;overflow:hidden}
-.progress-bar-fill{height:100%;background:var(--accent);border-radius:3px;transition:width .3s;width:0%}
-
-/* ── Desktop-only banner ── */
-.desktop-only{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:28px;text-align:center}
-.desktop-only .icon{font-size:40px;margin-bottom:12px}
-.desktop-only h3{font-size:15px;font-weight:600;color:var(--text);margin-bottom:8px}
-.desktop-only p{font-size:12px;color:var(--text2);line-height:1.7}
-.desktop-only code{background:var(--card2);padding:2px 6px;border-radius:4px;font-family:'DM Mono',monospace;font-size:11px;color:var(--yellow)}
-
-/* ── About ── */
-.dep-row{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--border)}
-.dep-row:last-child{border-bottom:none}
-.dep-ok{color:var(--green);font-size:12px;width:16px}
-.dep-name{font-size:11px;font-weight:600;width:130px}
-.dep-desc{font-size:10px;color:var(--text2);flex:1}
-.dep-cmd{font-size:10px;color:var(--yellow);font-family:'DM Mono',monospace}
-.badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:9px;font-weight:700;margin-right:6px}
-
-/* ── Scrollbar ── */
-::-webkit-scrollbar{width:4px}
-::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
-
-/* ── Radio buttons ── */
-.radio-group{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
-.radio-group label{text-transform:none;font-size:12px;color:var(--text2);display:flex;align-items:center;gap:5px;cursor:pointer;padding:5px 10px;background:var(--btn);border-radius:6px;border:1px solid transparent;transition:all .15s;margin-bottom:0}
-.radio-group label:hover{border-color:var(--accent);color:var(--text)}
+.prog-bg{width:160px;height:5px;background:var(--border);border-radius:3px;overflow:hidden}
+.prog-fill{height:100%;background:var(--accent);border-radius:3px;transition:width .4s;width:0%}
+.browse-zone{background:var(--card2);border-radius:10px;padding:28px;text-align:center;cursor:pointer;border:2px dashed var(--border);transition:all .15s;margin-bottom:12px}
+.browse-zone:hover{border-color:var(--accent);background:var(--hover)}
+.browse-zone .icon{font-size:32px;margin-bottom:8px}
+.browse-zone .lbl{font-size:13px;color:var(--text2)}
+.browse-zone.has-file .lbl{color:var(--green)}
+.file-list{margin-bottom:10px}
+.file-row{background:var(--card2);border-radius:6px;padding:8px 10px;display:flex;align-items:center;gap:8px;margin-bottom:4px;font-size:11px}
+.file-row .fname{flex:1;color:var(--text)}
+.file-row .fsize{color:var(--text3)}
+.file-row .rm{background:none;border:none;color:var(--text3);cursor:pointer;font-size:14px;padding:0 4px}
+.file-row .rm:hover{color:var(--red)}
+.radio-group{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.radio-group label{text-transform:none;font-size:11px;color:var(--text2);display:flex;align-items:center;gap:5px;cursor:pointer;padding:5px 10px;background:var(--btn);border-radius:6px;border:1px solid transparent;transition:all .15s;margin-bottom:0}
+.radio-group label:hover{border-color:var(--accent)}
 .radio-group input[type=radio]{display:none}
-.radio-group input[type=radio]:checked+span{color:var(--accent)}
-.radio-group label:has(input:checked){border-color:var(--accent);background:var(--card2);color:var(--accent)}
-
-/* ── Accent colors for type badges ── */
-.type-audio{background:#6C63FF22;color:var(--accent)}
-.type-video{background:#4F8EF722;color:var(--accent2)}
-.type-image{background:#22C55E22;color:var(--green)}
-.type-pdf{background:#F9731622;color:var(--orange)}
-
+.radio-group label.selected{border-color:var(--accent);background:var(--card2);color:var(--accent)}
+.pdf-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.pdf-col-title{font-size:13px;font-weight:700;margin-bottom:10px}
+.pdf-btn{background:var(--btn);color:var(--text2);border:1px solid var(--border);border-radius:8px;padding:10px 14px;font-size:12px;font-weight:500;cursor:pointer;transition:all .15s;font-family:inherit;width:100%;text-align:left;margin-bottom:6px;display:block}
+.pdf-btn:hover{background:var(--btn-h);color:var(--text)}
+.error-msg{background:#EF444420;border:1px solid var(--red);border-radius:8px;padding:10px 14px;font-size:12px;color:var(--red);margin-top:8px;display:none}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
 @media(max-width:900px){
   .sidebar{width:60px;min-width:60px}
-  .nav-btn span.nav-text{display:none}
-  .logo-title,.logo-sub,.nav-section{display:none}
+  .nav-btn .nav-text,.logo-title,.logo-sub,.nav-section,.sidebar-bottom{display:none}
   .compare-grid{grid-template-columns:repeat(3,1fr)}
-  .grid-3,.grid-4{grid-template-columns:1fr 1fr}
+  .grid-3{grid-template-columns:1fr 1fr}
+  .pdf-grid{grid-template-columns:1fr}
 }
 @media(max-width:600px){
   .compare-grid{grid-template-columns:repeat(2,1fr)}
-  .grid-2,.grid-3,.grid-4{grid-template-columns:1fr}
+  .grid-2,.grid-3{grid-template-columns:1fr}
   .row{flex-direction:column}
 }
 </style>
 </head>
 <body>
 
-<!-- ── Sidebar ─────────────────────────────────────────────────────────────── -->
 <div class="sidebar">
   <div class="logo">
     <div class="logo-title">⚡ Universal</div>
-    <div class="logo-sub">C O N V E R T E R</div>
+    <div class="logo-sub">CONVERTER</div>
   </div>
   <div class="nav-section">CONVERTERS</div>
-  <button class="nav-btn active" onclick="showPage('units',this)">
-    <span class="nav-icon">📏</span><span class="nav-text">Units</span>
-  </button>
-  <button class="nav-btn" onclick="showPage('currency',this)">
-    <span class="nav-icon">💱</span><span class="nav-text">Currency</span>
-  </button>
-  <button class="nav-btn" onclick="showPage('audio',this)">
-    <span class="nav-icon">🎵</span><span class="nav-text">Audio</span>
-  </button>
-  <button class="nav-btn" onclick="showPage('video',this)">
-    <span class="nav-icon">🎬</span><span class="nav-text">Video</span>
-  </button>
-  <button class="nav-btn" onclick="showPage('images',this)">
-    <span class="nav-icon">🖼</span><span class="nav-text">Images</span>
-  </button>
-  <button class="nav-btn" onclick="showPage('pdf',this)">
-    <span class="nav-icon">📄</span><span class="nav-text">PDF</span>
-  </button>
-  <button class="nav-btn" onclick="showPage('about',this)">
-    <span class="nav-icon">ℹ</span><span class="nav-text">About</span>
-  </button>
+  <button class="nav-btn active" onclick="showPage('units',this)"><span class="nav-icon">📏</span><span class="nav-text">Units</span></button>
+  <button class="nav-btn" onclick="showPage('currency',this)"><span class="nav-icon">💱</span><span class="nav-text">Currency</span></button>
+  <button class="nav-btn" onclick="showPage('audio',this)"><span class="nav-icon">🎵</span><span class="nav-text">Audio</span></button>
+  <button class="nav-btn" onclick="showPage('video',this)"><span class="nav-icon">🎬</span><span class="nav-text">Video</span></button>
+  <button class="nav-btn" onclick="showPage('images',this)"><span class="nav-icon">🖼</span><span class="nav-text">Images</span></button>
+  <button class="nav-btn" onclick="showPage('pdf',this)"><span class="nav-icon">📄</span><span class="nav-text">PDF</span></button>
+  <button class="nav-btn" onclick="showPage('about',this)"><span class="nav-icon">ℹ</span><span class="nav-text">About</span></button>
   <div class="sidebar-bottom">
-    <div class="ind ok">● Units &amp; Currency: Live</div>
-    <div class="ind">○ File convert: Desktop only</div>
+    <div class="ind ok" id="apiStatus">● Connecting…</div>
+    <div class="ind ok">● Units &amp; Currency</div>
   </div>
 </div>
 
-<!-- ── Main ────────────────────────────────────────────────────────────────── -->
 <div class="main">
-  <div class="header">
-    <h1 id="pageTitle">Units Converter</h1>
-  </div>
+  <div class="header"><h1 id="pageTitle">Units Converter</h1></div>
   <div class="content">
 
-    <!-- ══ UNITS ══ -->
+    <!-- UNITS -->
     <div id="page-units" class="page active">
       <div class="page-title">Unit Converter</div>
-      <div class="page-sub">Convert between all common units</div>
-
+      <div class="page-sub">13 categories · 100+ units</div>
       <div class="card">
         <label>Category</label>
         <select id="unitCat" onchange="onCatChange()"></select>
       </div>
-
       <div class="card">
         <div class="row" style="align-items:flex-start">
           <div>
@@ -199,8 +141,8 @@ input::placeholder{color:var(--text3)}
             <div style="height:8px"></div>
             <select id="unitFrom" onchange="calcUnit()"></select>
           </div>
-          <div style="flex:0;display:flex;flex-direction:column;align-items:center;padding-top:28px">
-            <button class="swap-btn" onclick="swapUnit()" title="Swap">⇄</button>
+          <div style="flex:0;display:flex;flex-direction:column;align-items:center;padding-top:26px">
+            <button class="swap-btn" onclick="swapUnit()">⇄</button>
           </div>
           <div>
             <label>To</label>
@@ -210,18 +152,16 @@ input::placeholder{color:var(--text3)}
           </div>
         </div>
       </div>
-
       <div class="card card2">
         <label>Quick Reference</label>
         <div class="qref" id="unitQref"></div>
       </div>
     </div>
 
-    <!-- ══ CURRENCY ══ -->
+    <!-- CURRENCY -->
     <div id="page-currency" class="page">
       <div class="page-title">Currency Converter</div>
-      <div class="page-sub" id="currencySub">Live rates · loading…</div>
-
+      <div class="page-sub" id="currSub">Live rates · loading…</div>
       <div class="card">
         <div class="row" style="align-items:flex-start">
           <div>
@@ -229,11 +169,10 @@ input::placeholder{color:var(--text3)}
             <input type="number" id="currAmt" value="1" oninput="calcCurrency()">
             <div style="height:8px"></div>
             <label>From</label>
-            <input type="text" id="currFrom" value="USD" maxlength="5"
-                   oninput="this.value=this.value.toUpperCase();calcCurrency()"
-                   list="currencyList" style="text-transform:uppercase">
+            <input type="text" id="currFrom" value="USD" maxlength="5" list="currList"
+                   oninput="this.value=this.value.toUpperCase();calcCurrency()" style="text-transform:uppercase">
           </div>
-          <div style="flex:0;display:flex;flex-direction:column;align-items:center;padding-top:28px">
+          <div style="flex:0;display:flex;flex-direction:column;align-items:center;padding-top:26px">
             <button class="swap-btn" onclick="swapCurrency()">⇄</button>
           </div>
           <div>
@@ -241,318 +180,501 @@ input::placeholder{color:var(--text3)}
             <div class="result-big" id="currResult">—</div>
             <div style="height:8px"></div>
             <label>To</label>
-            <input type="text" id="currTo" value="EUR" maxlength="5"
-                   oninput="this.value=this.value.toUpperCase();calcCurrency()"
-                   list="currencyList" style="text-transform:uppercase">
+            <input type="text" id="currTo" value="EUR" maxlength="5" list="currList"
+                   oninput="this.value=this.value.toUpperCase();calcCurrency()" style="text-transform:uppercase">
           </div>
         </div>
         <div class="result-sub" id="currRate"></div>
       </div>
-
-      <datalist id="currencyList"></datalist>
-
+      <datalist id="currList"></datalist>
       <div class="card card2">
-        <label>Quick Compare — Major Currencies</label>
+        <label>Quick Compare</label>
         <div class="compare-grid" id="compareGrid"></div>
       </div>
     </div>
 
-    <!-- ══ AUDIO ══ -->
+    <!-- AUDIO -->
     <div id="page-audio" class="page">
       <div class="page-title">Audio Converter</div>
-      <div class="desktop-only">
-        <div class="icon">🎵</div>
-        <h3>Desktop App Required</h3>
-        <p>Audio conversion uses <strong>FFmpeg</strong> which runs locally on your computer.<br><br>
-        Download the desktop app and run:<br>
-        <code>python main.py</code><br><br>
-        Supports MP3, WAV, FLAC, AAC, OGG, M4A, WMA, OPUS and more.</p>
+      <div class="page-sub">Convert audio files via server</div>
+      <div class="card">
+        <div class="browse-zone" id="audioDrop" onclick="pickFile('audioInput')">
+          <div class="icon">📂</div>
+          <div class="lbl" id="audioLbl">Click to browse audio file</div>
+        </div>
+        <input type="file" id="audioInput" style="display:none"
+               accept=".mp3,.wav,.flac,.aac,.ogg,.m4a,.wma,.opus,.aiff,.ac3,.mp4,.avi,.mov,.mkv"
+               onchange="fileSelected('audioInput','audioDrop','audioLbl')">
+        <label>Output Format</label>
+        <div class="radio-group" id="audioFmt"></div>
+        <div style="height:12px"></div>
+        <div class="grid-3">
+          <div><label>Bitrate</label>
+            <select id="audioBr"><option>64k</option><option>96k</option><option>128k</option><option>160k</option><option selected>192k</option><option>256k</option><option>320k</option></select></div>
+          <div><label>Sample Rate</label>
+            <select id="audioSr"><option>22050</option><option selected>44100</option><option>48000</option><option>96000</option></select></div>
+          <div><label>Channels</label>
+            <select id="audioCh"><option value="1">Mono</option><option value="2" selected>Stereo</option></select></div>
+        </div>
+        <div style="height:10px"></div>
+        <div class="row" style="align-items:center;margin-bottom:8px">
+          <div class="prog-bg" style="flex:1"><div class="prog-fill" id="audioBar"></div></div>
+          <div class="status-pct" id="audioPct"></div>
+        </div>
+        <div class="error-msg" id="audioErr"></div>
+        <div style="height:6px"></div>
+        <button class="btn btn-primary" onclick="convertAudio()">🎵 Convert Audio</button>
       </div>
     </div>
 
-    <!-- ══ VIDEO ══ -->
+    <!-- VIDEO -->
     <div id="page-video" class="page">
       <div class="page-title">Video Converter</div>
-      <div class="desktop-only">
-        <div class="icon">🎬</div>
-        <h3>Desktop App Required</h3>
-        <p>Video conversion uses <strong>FFmpeg</strong> which runs locally on your computer.<br><br>
-        Download the desktop app and run:<br>
-        <code>python main.py</code><br><br>
-        Supports MP4, AVI, MOV, MKV, WEBM, FLV, WMV and more.</p>
+      <div class="page-sub">Convert video files via server</div>
+      <div class="card">
+        <div class="browse-zone" id="videoDrop" onclick="pickFile('videoInput')">
+          <div class="icon">📂</div>
+          <div class="lbl" id="videoLbl">Click to browse video file</div>
+        </div>
+        <input type="file" id="videoInput" style="display:none"
+               accept=".mp4,.avi,.mov,.mkv,.webm,.flv,.wmv,.m4v,.ts,.3gp"
+               onchange="fileSelected('videoInput','videoDrop','videoLbl')">
+        <label>Output Format</label>
+        <div class="radio-group" id="videoFmt"></div>
+        <div style="height:12px"></div>
+        <div class="grid-3">
+          <div><label>Quality (CRF)</label>
+            <select id="videoCrf">
+              <option value="18">18 (Best)</option><option value="20">20</option>
+              <option value="23" selected>23 (Default)</option><option value="26">26</option>
+              <option value="30">30 (Small)</option>
+            </select></div>
+          <div><label>Resolution</label>
+            <select id="videoRes">
+              <option value="">Original</option><option value="1920x1080">1080p</option>
+              <option value="1280x720">720p</option><option value="854x480">480p</option>
+              <option value="640x360">360p</option>
+            </select></div>
+          <div><label>FPS</label>
+            <select id="videoFps">
+              <option value="">Original</option><option>60</option>
+              <option>30</option><option>24</option>
+            </select></div>
+        </div>
+        <div style="height:10px"></div>
+        <div class="row" style="align-items:center;margin-bottom:8px">
+          <div class="prog-bg" style="flex:1"><div class="prog-fill" id="videoBar"></div></div>
+          <div class="status-pct" id="videoPct"></div>
+        </div>
+        <div class="error-msg" id="videoErr"></div>
+        <div style="height:6px"></div>
+        <div class="grid-2">
+          <button class="btn btn-primary" onclick="convertVideo()">🎬 Convert Video</button>
+          <button class="btn btn-secondary" onclick="extractAudio()">🎵 Extract Audio</button>
+        </div>
       </div>
     </div>
 
-    <!-- ══ IMAGES ══ -->
+    <!-- IMAGES -->
     <div id="page-images" class="page">
       <div class="page-title">Image Converter</div>
-      <div class="desktop-only">
-        <div class="icon">🖼</div>
-        <h3>Desktop App Required</h3>
-        <p>Image conversion uses <strong>Pillow</strong> which runs locally on your computer.<br><br>
-        Download the desktop app and run:<br>
-        <code>python main.py</code><br><br>
-        Supports JPG, PNG, WEBP, GIF, BMP, TIFF and more.</p>
+      <div class="page-sub">Convert and resize images via server</div>
+      <div class="card">
+        <div class="browse-zone" id="imgDrop" onclick="pickFile('imgInput')">
+          <div class="icon">📂</div>
+          <div class="lbl" id="imgLbl">Click to browse image(s)</div>
+        </div>
+        <input type="file" id="imgInput" style="display:none" multiple
+               accept=".jpg,.jpeg,.png,.webp,.gif,.bmp,.tiff,.tif,.ico"
+               onchange="imgFilesSelected()">
+        <div class="file-list" id="imgFileList"></div>
+        <label>Convert To</label>
+        <div class="radio-group" id="imgFmt"></div>
+        <div style="height:12px"></div>
+        <div class="row" style="align-items:center">
+          <label style="margin:0;flex:0;white-space:nowrap">Resize Scale (%)</label>
+          <input type="number" id="imgScale" value="100" min="1" max="400"
+                 style="width:90px;flex:0;margin-left:12px">
+        </div>
+        <div style="height:10px"></div>
+        <div class="row" style="align-items:center;margin-bottom:8px">
+          <div class="prog-bg" style="flex:1"><div class="prog-fill" id="imgBar"></div></div>
+          <div class="status-pct" id="imgPct"></div>
+        </div>
+        <div class="error-msg" id="imgErr"></div>
+        <div style="height:6px"></div>
+        <button class="btn btn-primary" onclick="convertImages()">🖼 Convert Image(s)</button>
       </div>
     </div>
 
-    <!-- ══ PDF ══ -->
+    <!-- PDF -->
     <div id="page-pdf" class="page">
       <div class="page-title">PDF Converter</div>
-      <div class="desktop-only">
-        <div class="icon">📄</div>
-        <h3>Desktop App Required</h3>
-        <p>PDF conversion requires <strong>pdfplumber</strong>, <strong>python-docx</strong> and other libraries which run locally.<br><br>
-        Download the desktop app and run:<br>
-        <code>python main.py</code><br><br>
-        Supports PDF ↔ Word, Excel, PPT, Images, Text.</p>
+      <div class="page-sub">Convert to and from PDF via server</div>
+      <div class="row" style="align-items:center;margin-bottom:8px">
+        <div class="prog-bg" style="flex:1"><div class="prog-fill" id="pdfBar"></div></div>
+        <div class="status-pct" id="pdfPct"></div>
+      </div>
+      <div class="error-msg" id="pdfErr"></div>
+      <div class="pdf-grid">
+        <div class="card">
+          <div class="pdf-col-title" style="color:var(--accent)">⬆ Convert TO PDF</div>
+          <input type="file" id="pdfSrcImg"  style="display:none" accept=".jpg,.jpeg,.png,.webp,.gif,.bmp,.tiff" onchange="pdfConvert(this,'image_to_pdf','.pdf')">
+          <input type="file" id="pdfSrcWord" style="display:none" accept=".docx,.doc" onchange="pdfConvert(this,'office_to_pdf','.pdf')">
+          <input type="file" id="pdfSrcXls"  style="display:none" accept=".xlsx,.xls" onchange="pdfConvert(this,'office_to_pdf','.pdf')">
+          <input type="file" id="pdfSrcPpt"  style="display:none" accept=".pptx,.ppt" onchange="pdfConvert(this,'office_to_pdf','.pdf')">
+          <input type="file" id="pdfSrcTxt"  style="display:none" accept=".txt,.md"   onchange="pdfConvert(this,'text_to_pdf','.pdf')">
+          <button class="pdf-btn" onclick="document.getElementById('pdfSrcImg').click()">🖼 Image → PDF</button>
+          <button class="pdf-btn" onclick="document.getElementById('pdfSrcWord').click()">📄 Word → PDF</button>
+          <button class="pdf-btn" onclick="document.getElementById('pdfSrcXls').click()">📊 Excel → PDF</button>
+          <button class="pdf-btn" onclick="document.getElementById('pdfSrcPpt').click()">📑 PPT → PDF</button>
+          <button class="pdf-btn" onclick="document.getElementById('pdfSrcTxt').click()">📝 Text/MD → PDF</button>
+        </div>
+        <div class="card">
+          <div class="pdf-col-title" style="color:var(--accent2)">⬇ Convert FROM PDF</div>
+          <input type="file" id="pdfFromJpg"  style="display:none" accept=".pdf" onchange="pdfConvert(this,'to_jpg','.zip')">
+          <input type="file" id="pdfFromWord" style="display:none" accept=".pdf" onchange="pdfConvert(this,'to_word','.docx')">
+          <input type="file" id="pdfFromText" style="display:none" accept=".pdf" onchange="pdfConvert(this,'to_text','.txt')">
+          <input type="file" id="pdfFromXls"  style="display:none" accept=".pdf" onchange="pdfConvert(this,'to_excel','.xlsx')">
+          <input type="file" id="pdfFromPpt"  style="display:none" accept=".pdf" onchange="pdfConvert(this,'to_ppt','.pptx')">
+          <button class="pdf-btn" onclick="document.getElementById('pdfFromJpg').click()">🖼 PDF → JPG</button>
+          <button class="pdf-btn" onclick="document.getElementById('pdfFromWord').click()">📄 PDF → Word</button>
+          <button class="pdf-btn" onclick="document.getElementById('pdfFromText').click()">📝 PDF → Text</button>
+          <button class="pdf-btn" onclick="document.getElementById('pdfFromXls').click()">📊 PDF → Excel</button>
+          <button class="pdf-btn" onclick="document.getElementById('pdfFromPpt').click()">📑 PDF → PPT</button>
+        </div>
       </div>
     </div>
 
-    <!-- ══ ABOUT ══ -->
+    <!-- ABOUT -->
     <div id="page-about" class="page">
       <div class="page-title">About</div>
       <div class="card" style="text-align:center;padding:28px">
-        <div style="font-size:32px;margin-bottom:8px">⚡</div>
+        <div style="font-size:36px;margin-bottom:10px">⚡</div>
         <div style="font-size:20px;font-weight:700;color:var(--accent)">Universal Converter</div>
-        <div style="font-size:12px;color:var(--text2);margin-top:4px">v2.1 Final · Web Edition</div>
+        <div style="font-size:12px;color:var(--text2);margin-top:4px">v2.1 · Web Edition · Firebase + Render</div>
       </div>
-
       <div class="card">
-        <div class="card-title">What works on web</div>
-        <div class="dep-row">
-          <div class="dep-ok">✓</div>
-          <div class="dep-name">Unit Converter</div>
-          <div class="dep-desc">13 categories, 100+ units, instant conversion</div>
+        <div style="font-size:12px;font-weight:600;margin-bottom:12px">Architecture</div>
+        <div style="font-size:11px;color:var(--text2);line-height:2">
+          <span style="color:var(--accent)">Frontend</span> — Firebase Hosting · Vanilla HTML/CSS/JS<br>
+          <span style="color:var(--accent)">Backend API</span> — Render.com · Python Flask · FFmpeg · Pillow<br>
+          <span style="color:var(--accent)">Units</span> — Runs entirely in the browser, no server needed<br>
+          <span style="color:var(--accent)">Currency</span> — Live rates from open.er-api.com via API<br>
+          <span style="color:var(--accent)">Files</span> — Uploaded to Render, processed, downloaded back
         </div>
-        <div class="dep-row">
-          <div class="dep-ok">✓</div>
-          <div class="dep-name">Currency Converter</div>
-          <div class="dep-desc">166 currencies, live rates from open.er-api.com</div>
-        </div>
-        <div class="dep-row">
-          <div class="dep-ok" style="color:var(--text3)">○</div>
-          <div class="dep-name">Audio / Video</div>
-          <div class="dep-desc">Requires FFmpeg — desktop app only</div>
-          <div class="dep-cmd">python main.py</div>
-        </div>
-        <div class="dep-row">
-          <div class="dep-ok" style="color:var(--text3)">○</div>
-          <div class="dep-name">Image Conversion</div>
-          <div class="dep-desc">Requires Pillow — desktop app only</div>
-          <div class="dep-cmd">python main.py</div>
-        </div>
-        <div class="dep-row">
-          <div class="dep-ok" style="color:var(--text3)">○</div>
-          <div class="dep-name">PDF Conversion</div>
-          <div class="dep-desc">Requires pdfplumber — desktop app only</div>
-          <div class="dep-cmd">python main.py</div>
-        </div>
-      </div>
-
-      <div class="card card2" style="font-size:11px;color:var(--text2);line-height:1.8">
-        Built with Python (desktop) · Vanilla JS (web) · Firebase Hosting<br>
-        Desktop app: CustomTkinter · FFmpeg · Pillow · pdfplumber
       </div>
     </div>
 
-  </div><!-- end .content -->
+  </div><!-- content -->
 
-  <!-- Status bar -->
   <div class="statusbar">
     <div class="status-msg" id="statusMsg">Ready</div>
     <div class="status-pct" id="statusPct"></div>
-    <div class="progress-bar-bg">
-      <div class="progress-bar-fill" id="progressFill"></div>
-    </div>
+    <div class="prog-bg"><div class="prog-fill" id="mainBar"></div></div>
   </div>
-</div><!-- end .main -->
+</div>
 
 <script>
-// ══════════════════════════════════════════════════════════════════════════════
-//  NAV
-// ══════════════════════════════════════════════════════════════════════════════
-function showPage(name, btn) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('page-' + name).classList.add('active');
+// ── CONFIG — set your Render URL here once deployed ──────────────────────────
+const API = "https://converter-x-api.onrender.com"; // ← UPDATE THIS after Render deploy
+
+// ── Nav ───────────────────────────────────────────────────────────────────────
+const PAGE_TITLES={units:'Units Converter',currency:'Currency Converter',audio:'Audio Converter',video:'Video Converter',images:'Image Converter',pdf:'PDF Converter',about:'About'};
+function showPage(name,btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
   btn.classList.add('active');
-  const titles = {units:'Units Converter',currency:'Currency Converter',
-    audio:'Audio Converter',video:'Video Converter',
-    images:'Image Converter',pdf:'PDF Converter',about:'About'};
-  document.getElementById('pageTitle').textContent = titles[name] || name;
-  setStatus('Ready', '', 0);
+  document.getElementById('pageTitle').textContent=PAGE_TITLES[name]||name;
+  setStatus('Ready','',0);
+}
+function setStatus(msg,color,pct){
+  document.getElementById('statusMsg').textContent=msg;
+  document.getElementById('statusMsg').style.color=color||'var(--text2)';
+  document.getElementById('mainBar').style.width=pct+'%';
+  document.getElementById('statusPct').textContent=pct>0?pct+'%':'';
+  document.getElementById('statusPct').style.color=pct>=100?'var(--green)':'var(--accent)';
+}
+function setProgress(barId,pctId,pct){
+  document.getElementById(barId).style.width=pct+'%';
+  document.getElementById(pctId).textContent=pct>0?Math.round(pct)+'%':'';
+  document.getElementById(pctId).style.color=pct>=100?'var(--green)':'var(--accent)';
+}
+function showErr(id,msg){
+  const el=document.getElementById(id);
+  el.textContent=msg; el.style.display='block';
+  setTimeout(()=>el.style.display='none',6000);
 }
 
-function setStatus(msg, color, pct) {
-  document.getElementById('statusMsg').textContent = msg;
-  document.getElementById('statusMsg').style.color = color || 'var(--text2)';
-  document.getElementById('progressFill').style.width = pct + '%';
-  document.getElementById('statusPct').textContent = pct > 0 ? pct + '%' : '';
-  document.getElementById('statusPct').style.color = pct >= 100 ? 'var(--green)' : 'var(--accent)';
+// ── API health check ─────────────────────────────────────────────────────────
+async function checkAPI(){
+  try{
+    const r=await fetch(API+'/');
+    const d=await r.json();
+    document.getElementById('apiStatus').textContent=
+      `● API: FFmpeg ${d.ffmpeg?'✓':'✗'} · Pillow ${d.pillow?'✓':'✗'}`;
+    document.getElementById('apiStatus').style.color=d.ffmpeg?'var(--green)':'var(--orange)';
+  }catch(e){
+    document.getElementById('apiStatus').textContent='○ API offline';
+    document.getElementById('apiStatus').style.color='var(--red)';
+  }
+}
+checkAPI();
+
+// ── File helpers ──────────────────────────────────────────────────────────────
+function pickFile(id){ document.getElementById(id).click(); }
+function fileSelected(inputId,dropId,lblId){
+  const f=document.getElementById(inputId).files[0];
+  if(!f) return;
+  document.getElementById(lblId).textContent=f.name;
+  document.getElementById(dropId).classList.add('has-file');
+}
+function fmtSize(b){ return b>1048576?(b/1048576).toFixed(1)+'MB':(b/1024).toFixed(0)+'KB'; }
+
+async function apiUpload(endpoint, formData, barId, pctId){
+  // Fake progress since fetch doesn't report upload progress natively
+  let fakeP=0;
+  const ticker=setInterval(()=>{
+    fakeP=Math.min(90,fakeP+2);
+    setProgress(barId,pctId,fakeP);
+    setStatus('Converting…','var(--yellow)',fakeP);
+  },300);
+  try{
+    const r=await fetch(API+endpoint,{method:'POST',body:formData});
+    clearInterval(ticker);
+    if(!r.ok){
+      const err=await r.json().catch(()=>({error:'Server error'}));
+      return {ok:false,error:err.error||'Server error'};
+    }
+    setProgress(barId,pctId,100);
+    setStatus('Done ✓','var(--green)',100);
+    const blob=await r.blob();
+    const cd=r.headers.get('Content-Disposition')||'';
+    const match=cd.match(/filename="?([^"]+)"?/);
+    const fname=match?match[1]:'converted_file';
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a'); a.href=url; a.download=fname;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    return {ok:true};
+  }catch(e){
+    clearInterval(ticker);
+    return {ok:false,error:e.message};
+  }
 }
 
-// ══════════════════════════════════════════════════════════════════════════════
-//  UNIT DATA  (matches config.py exactly)
-// ══════════════════════════════════════════════════════════════════════════════
-const UNIT_CATS = {
-  "📏  Length":    {meter:1,kilometer:1e3,centimeter:.01,millimeter:.001,micrometer:1e-6,nanometer:1e-9,mile:1609.344,yard:.9144,foot:.3048,inch:.0254,"nautical mile":1852},
-  "⚖️  Weight":    {kilogram:1,gram:.001,milligram:1e-6,pound:.453592,ounce:.0283495,"metric ton":1000,stone:6.35029,carat:.0002},
-  "🌡️  Temperature": {__temp__:true,units:["Celsius","Fahrenheit","Kelvin","Rankine"]},
-  "🧪  Volume":    {liter:1,milliliter:.001,"cubic meter":1000,"gallon (US)":3.78541,quart:.946353,pint:.473176,cup:.236588,"fluid ounce":.0295735,tablespoon:.0147868,teaspoon:.00492892},
-  "⬛  Area":      {"square meter":1,"square kilometer":1e6,"square centimeter":.0001,"square mile":2589988,acre:4046.86,hectare:10000,"square foot":.092903,"square inch":.00064516,"square yard":.836127},
-  "💨  Speed":     {"m/s":1,"km/h":.277778,mph:.44704,knot:.514444,"ft/s":.3048,mach:340.29},
-  "⏱️  Time":      {second:1,millisecond:.001,microsecond:1e-6,nanosecond:1e-9,minute:60,hour:3600,day:86400,week:604800,month:2592000,year:31536000,decade:315360000},
-  "💾  Data":      {byte:1,kilobyte:1024,megabyte:1048576,gigabyte:1073741824,terabyte:1099511627776,bit:.125,kilobit:128,megabit:131072,gigabit:134217728},
-  "🔵  Pressure":  {pascal:1,kilopascal:1000,megapascal:1e6,bar:100000,psi:6894.76,atm:101325,mmHg:133.322},
-  "⚡  Energy":    {joule:1,kilojoule:1000,megajoule:1e6,calorie:4.184,kilocalorie:4184,"watt-hour":3600,"kilowatt-hour":3600000,BTU:1055.06},
-  "💡  Power":     {watt:1,kilowatt:1000,megawatt:1e6,gigawatt:1e9,horsepower:745.7},
-  "📐  Angle":     {degree:1,radian:57.2958,gradian:.9,arcminute:1/60,arcsecond:1/3600},
-  "📡  Frequency": {hertz:1,kilohertz:1000,megahertz:1e6,gigahertz:1e9},
-};
-
-function cvtTemp(v,f,t){
-  let c;
-  if(f==="Celsius")c=v; else if(f==="Fahrenheit")c=(v-32)*5/9;
-  else if(f==="Kelvin")c=v-273.15; else if(f==="Rankine")c=(v-491.67)*5/9; else return null;
-  if(t==="Celsius")return c; if(t==="Fahrenheit")return c*9/5+32;
-  if(t==="Kelvin")return c+273.15; if(t==="Rankine")return(c+273.15)*9/5;
-}
-function cvtUnit(val,fu,tu,data){
-  if(data.__temp__) return cvtTemp(val,fu,tu);
-  if(!data[fu]||!data[tu]) return null;
-  return val*data[fu]/data[tu];
-}
-function fmtNum(n){
-  if(n===null||n===undefined) return "Error";
-  if((Math.abs(n)<1e-6&&n!==0)||Math.abs(n)>=1e13) return n.toExponential(4);
-  let s=n.toLocaleString('en-US',{maximumFractionDigits:10});
-  return s.replace(/\.?0+$/,'');
-}
-
-// Build unit dropdowns
-const catSel = document.getElementById('unitCat');
-Object.keys(UNIT_CATS).forEach(c => {
-  const o = document.createElement('option'); o.value=c; o.textContent=c; catSel.appendChild(o);
-});
-
-function getUnits(cat){
-  const d=UNIT_CATS[cat]; return d.__temp__ ? d.units : Object.keys(d);
-}
-function populateUnitDDs(){
-  const cat=catSel.value, units=getUnits(cat);
-  ['unitFrom','unitTo'].forEach((id,i)=>{
-    const sel=document.getElementById(id); sel.innerHTML='';
-    units.forEach(u=>{const o=document.createElement('option');o.value=u;o.textContent=u;sel.appendChild(o);});
-    sel.value=units[i]||units[0];
+// ── Radio group builder ───────────────────────────────────────────────────────
+function buildRadios(containerId, values, defaultVal){
+  const c=document.getElementById(containerId); c.innerHTML='';
+  values.forEach(v=>{
+    const lbl=document.createElement('label');
+    if(v===defaultVal) lbl.classList.add('selected');
+    const inp=document.createElement('input'); inp.type='radio'; inp.name=containerId; inp.value=v;
+    if(v===defaultVal) inp.checked=true;
+    lbl.appendChild(inp);
+    const sp=document.createElement('span'); sp.textContent=v.toUpperCase(); lbl.appendChild(sp);
+    lbl.onclick=()=>{
+      document.querySelectorAll(`#${containerId} label`).forEach(l=>l.classList.remove('selected'));
+      lbl.classList.add('selected');
+    };
+    c.appendChild(lbl);
   });
 }
-function onCatChange(){ populateUnitDDs(); calcUnit(); }
+buildRadios('audioFmt',['mp3','wav','flac','aac','ogg','m4a','wma','opus'],'mp3');
+buildRadios('videoFmt',['mp4','avi','mov','mkv','webm','flv','wmv'],'mp4');
+buildRadios('imgFmt',['png','jpg','webp','gif','bmp','tiff','pdf'],'png');
 
+function getRadio(name){ const el=document.querySelector(`input[name="${name}"]:checked`); return el?el.value:''; }
+
+// ══════════════════════════════════════════════════════════════════════════════
+//  UNIT CONVERTER
+// ══════════════════════════════════════════════════════════════════════════════
+const UNIT_CATS={
+  "📏  Length":{meter:1,kilometer:1e3,centimeter:.01,millimeter:.001,micrometer:1e-6,nanometer:1e-9,mile:1609.344,yard:.9144,foot:.3048,inch:.0254,"nautical mile":1852},
+  "⚖️  Weight":{kilogram:1,gram:.001,milligram:1e-6,pound:.453592,ounce:.0283495,"metric ton":1000,stone:6.35029,carat:.0002},
+  "🌡️  Temperature":{__temp__:true,units:["Celsius","Fahrenheit","Kelvin","Rankine"]},
+  "🧪  Volume":{liter:1,milliliter:.001,"cubic meter":1000,"gallon (US)":3.78541,quart:.946353,pint:.473176,cup:.236588,"fluid ounce":.0295735,tablespoon:.0147868,teaspoon:.00492892},
+  "⬛  Area":{"square meter":1,"square kilometer":1e6,"square centimeter":.0001,"square mile":2589988,acre:4046.86,hectare:10000,"square foot":.092903,"square inch":.00064516,"square yard":.836127},
+  "💨  Speed":{"m/s":1,"km/h":.277778,mph:.44704,knot:.514444,"ft/s":.3048,mach:340.29},
+  "⏱️  Time":{second:1,millisecond:.001,microsecond:1e-6,nanosecond:1e-9,minute:60,hour:3600,day:86400,week:604800,month:2592000,year:31536000,decade:315360000},
+  "💾  Data":{byte:1,kilobyte:1024,megabyte:1048576,gigabyte:1073741824,terabyte:1099511627776,bit:.125,kilobit:128,megabit:131072,gigabit:134217728},
+  "🔵  Pressure":{pascal:1,kilopascal:1000,megapascal:1e6,bar:100000,psi:6894.76,atm:101325,mmHg:133.322},
+  "⚡  Energy":{joule:1,kilojoule:1000,megajoule:1e6,calorie:4.184,kilocalorie:4184,"watt-hour":3600,"kilowatt-hour":3600000,BTU:1055.06},
+  "💡  Power":{watt:1,kilowatt:1000,megawatt:1e6,gigawatt:1e9,horsepower:745.7},
+  "📐  Angle":{degree:1,radian:57.2958,gradian:.9,arcminute:1/60,arcsecond:1/3600},
+  "📡  Frequency":{hertz:1,kilohertz:1000,megahertz:1e6,gigahertz:1e9},
+};
+function cvtTemp(v,f,t){let c;if(f==="Celsius")c=v;else if(f==="Fahrenheit")c=(v-32)*5/9;else if(f==="Kelvin")c=v-273.15;else if(f==="Rankine")c=(v-491.67)*5/9;else return null;if(t==="Celsius")return c;if(t==="Fahrenheit")return c*9/5+32;if(t==="Kelvin")return c+273.15;if(t==="Rankine")return(c+273.15)*9/5;}
+function cvtUnit(val,fu,tu,data){if(data.__temp__)return cvtTemp(val,fu,tu);if(!data[fu]||!data[tu])return null;return val*data[fu]/data[tu];}
+function fmtNum(n){if(n===null||n===undefined)return"Error";if((Math.abs(n)<1e-6&&n!==0)||Math.abs(n)>=1e13)return n.toExponential(4);return n.toLocaleString('en-US',{maximumFractionDigits:10}).replace(/\.?0+$/,'');}
+const catSel=document.getElementById('unitCat');
+Object.keys(UNIT_CATS).forEach(c=>{const o=document.createElement('option');o.value=c;o.textContent=c;catSel.appendChild(o);});
+function getUnits(cat){const d=UNIT_CATS[cat];return d.__temp__?d.units:Object.keys(d);}
+function populateDDs(){
+  const units=getUnits(catSel.value);
+  ['unitFrom','unitTo'].forEach((id,i)=>{
+    const s=document.getElementById(id);s.innerHTML='';
+    units.forEach(u=>{const o=document.createElement('option');o.value=u;o.textContent=u;s.appendChild(o);});
+    s.value=units[i]||units[0];
+  });
+}
+function onCatChange(){populateDDs();calcUnit();}
 function calcUnit(){
   const val=parseFloat(document.getElementById('unitVal').value);
-  const from=document.getElementById('unitFrom').value;
-  const to=document.getElementById('unitTo').value;
-  const cat=catSel.value; const data=UNIT_CATS[cat];
-  if(isNaN(val)){ document.getElementById('unitResult').textContent='—'; return; }
+  const from=document.getElementById('unitFrom').value,to=document.getElementById('unitTo').value;
+  const data=UNIT_CATS[catSel.value];
+  if(isNaN(val)){document.getElementById('unitResult').textContent='—';return;}
   const res=cvtUnit(val,from,to,data);
   document.getElementById('unitResult').textContent=res!==null?fmtNum(res):'Error';
-  // Quick ref
-  const qref=document.getElementById('unitQref'); qref.innerHTML='';
-  let cnt=0;
-  getUnits(cat).forEach(u=>{
-    if(cnt>=6||u===from) return;
+  const qref=document.getElementById('unitQref');qref.innerHTML='';let cnt=0;
+  getUnits(catSel.value).forEach(u=>{
+    if(cnt>=6||u===from)return;
     const r=cvtUnit(val,from,u,data);
-    if(r!==null){
-      const chip=document.createElement('div'); chip.className='qref-chip';
-      chip.textContent=`${fmtNum(r)} ${u}`; qref.appendChild(chip); cnt++;
-    }
+    if(r!==null){const ch=document.createElement('div');ch.className='qref-chip';ch.textContent=`${fmtNum(r)} ${u}`;qref.appendChild(ch);cnt++;}
   });
-  setStatus('Converted','var(--green)',100);
-  setTimeout(()=>setStatus('Ready','',0),1500);
 }
-
 function swapUnit(){
-  const f=document.getElementById('unitFrom').value;
-  const t=document.getElementById('unitTo').value;
+  const f=document.getElementById('unitFrom').value,t=document.getElementById('unitTo').value;
   const cur=document.getElementById('unitResult').textContent;
-  document.getElementById('unitFrom').value=t;
-  document.getElementById('unitTo').value=f;
-  document.getElementById('unitVal').value=cur.replace(/,/g,'');
-  calcUnit();
+  document.getElementById('unitFrom').value=t;document.getElementById('unitTo').value=f;
+  document.getElementById('unitVal').value=cur.replace(/,/g,'');calcUnit();
 }
-
 onCatChange();
 
 // ══════════════════════════════════════════════════════════════════════════════
 //  CURRENCY
 // ══════════════════════════════════════════════════════════════════════════════
-let RATES = {};
-const MAJORS = ["USD","EUR","GBP","JPY","CAD","AUD","CHF","CNY","INR","MXN","BRL","KRW","SGD","AED","TRY","NOK","SEK","PLN"];
-
+let RATES={};
+const MAJORS=["USD","EUR","GBP","JPY","CAD","AUD","CHF","CNY","INR","MXN","BRL","KRW","SGD","AED","TRY","NOK","SEK","PLN"];
 async function loadRates(){
-  try {
-    const res = await fetch('https://open.er-api.com/v6/latest/USD');
-    const data = await res.json();
-    if(data.result==='success'){
-      RATES = data.rates; RATES.USD = 1.0;
-      document.getElementById('currencySub').textContent =
-        `${Object.keys(RATES).length} currencies · live rates`;
-      buildCurrencyDatalist();
-      calcCurrency();
-    }
-  } catch(e) {
-    document.getElementById('currencySub').textContent = 'Using cached rates';
+  try{
+    const r=await fetch(API+'/api/currency');
+    const d=await r.json();
+    RATES=d.rates;
+    document.getElementById('currSub').textContent=`${Object.keys(RATES).length} currencies · live rates`;
+    const dl=document.getElementById('currList');dl.innerHTML='';
+    Object.keys(RATES).sort().forEach(c=>{const o=document.createElement('option');o.value=c;dl.appendChild(o);});
+    calcCurrency();
+  }catch(e){
+    // Fallback: fetch directly
+    try{
+      const r=await fetch('https://open.er-api.com/v6/latest/USD');
+      const d=await r.json();
+      if(d.result==='success'){RATES=d.rates;RATES.USD=1.0;document.getElementById('currSub').textContent=`${Object.keys(RATES).length} currencies · live rates`;calcCurrency();}
+    }catch(e2){document.getElementById('currSub').textContent='Could not load rates';}
   }
 }
-
-function buildCurrencyDatalist(){
-  const dl = document.getElementById('currencyList'); dl.innerHTML='';
-  Object.keys(RATES).sort().forEach(c=>{
-    const o=document.createElement('option'); o.value=c; dl.appendChild(o);
-  });
-}
-
-function cvtCurrency(amt,fc,tc){
-  if(!RATES[fc]||!RATES[tc]) return null;
-  return amt / RATES[fc] * RATES[tc];
-}
-
 function calcCurrency(){
-  const amt = parseFloat(document.getElementById('currAmt').value);
-  const fc  = document.getElementById('currFrom').value.toUpperCase().trim();
-  const tc  = document.getElementById('currTo').value.toUpperCase().trim();
-  if(isNaN(amt)||!RATES[fc]||!RATES[tc]){
-    document.getElementById('currResult').textContent='—'; return;
-  }
-  const res  = cvtCurrency(amt,fc,tc);
-  const rate = RATES[tc]/RATES[fc];
-  document.getElementById('currResult').textContent =
-    res.toFixed(6).replace(/\.?0+$/,'');
-  document.getElementById('currRate').textContent =
-    `1 ${fc} = ${rate.toFixed(6)} ${tc}`;
-  // Compare grid
-  const grid = document.getElementById('compareGrid'); grid.innerHTML='';
+  const amt=parseFloat(document.getElementById('currAmt').value||'0');
+  const fc=document.getElementById('currFrom').value.trim();
+  const tc=document.getElementById('currTo').value.trim();
+  if(isNaN(amt)||!RATES[fc]||!RATES[tc]){document.getElementById('currResult').textContent='—';return;}
+  const res=amt/RATES[fc]*RATES[tc];
+  const rate=RATES[tc]/RATES[fc];
+  document.getElementById('currResult').textContent=res.toFixed(6).replace(/\.?0+$/,'');
+  document.getElementById('currRate').textContent=`1 ${fc} = ${rate.toFixed(6)} ${tc}`;
+  const grid=document.getElementById('compareGrid');grid.innerHTML='';
   MAJORS.forEach(cur=>{
-    const r   = cvtCurrency(amt,fc,cur);
-    const val = cur===fc ? '—' : r ? r.toFixed(2) : '—';
-    const cell= document.createElement('div'); cell.className='compare-cell';
+    const r=RATES[cur]?amt/RATES[fc]*RATES[cur]:null;
+    const val=cur===fc?'—':r?r.toFixed(2):'—';
+    const cell=document.createElement('div');cell.className='compare-cell';
     cell.innerHTML=`<span class="cur">${cur}</span><span class="val">${val}</span>`;
     grid.appendChild(cell);
   });
-  setStatus(`1 ${fc} = ${rate.toFixed(4)} ${tc}`,'var(--accent)',100);
-  setTimeout(()=>setStatus('Ready','',0),2000);
 }
-
 function swapCurrency(){
-  const f=document.getElementById('currFrom').value;
-  const t=document.getElementById('currTo').value;
-  document.getElementById('currFrom').value=t;
-  document.getElementById('currTo').value=f;
-  calcCurrency();
+  const f=document.getElementById('currFrom').value,t=document.getElementById('currTo').value;
+  document.getElementById('currFrom').value=t;document.getElementById('currTo').value=f;calcCurrency();
+}
+loadRates();
+
+// ══════════════════════════════════════════════════════════════════════════════
+//  AUDIO
+// ══════════════════════════════════════════════════════════════════════════════
+async function convertAudio(){
+  const inp=document.getElementById('audioInput');
+  if(!inp.files.length){showErr('audioErr','Please select a file first');return;}
+  const fmt=getRadio('audioFmt');
+  const fd=new FormData();
+  fd.append('file',inp.files[0]);
+  fd.append('format',fmt);
+  fd.append('bitrate',document.getElementById('audioBr').value);
+  fd.append('samplerate',document.getElementById('audioSr').value);
+  fd.append('channels',document.getElementById('audioCh').value);
+  const res=await apiUpload('/api/audio/convert',fd,'audioBar','audioPct');
+  if(!res.ok) showErr('audioErr',res.error);
 }
 
-loadRates();
+// ══════════════════════════════════════════════════════════════════════════════
+//  VIDEO
+// ══════════════════════════════════════════════════════════════════════════════
+async function convertVideo(){
+  const inp=document.getElementById('videoInput');
+  if(!inp.files.length){showErr('videoErr','Please select a file first');return;}
+  const fmt=getRadio('videoFmt');
+  const fd=new FormData();
+  fd.append('file',inp.files[0]);
+  fd.append('format',fmt);
+  fd.append('crf',document.getElementById('videoCrf').value);
+  fd.append('resolution',document.getElementById('videoRes').value);
+  fd.append('fps',document.getElementById('videoFps').value);
+  const res=await apiUpload('/api/video/convert',fd,'videoBar','videoPct');
+  if(!res.ok) showErr('videoErr',res.error);
+}
+async function extractAudio(){
+  const inp=document.getElementById('videoInput');
+  if(!inp.files.length){showErr('videoErr','Please select a file first');return;}
+  const fd=new FormData(); fd.append('file',inp.files[0]);
+  const res=await apiUpload('/api/video/extract_audio',fd,'videoBar','videoPct');
+  if(!res.ok) showErr('videoErr',res.error);
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+//  IMAGES
+// ══════════════════════════════════════════════════════════════════════════════
+let imgFiles=[];
+function imgFilesSelected(){
+  const inp=document.getElementById('imgInput');
+  imgFiles=Array.from(inp.files);
+  const lbl=document.getElementById('imgLbl');
+  lbl.textContent=imgFiles.length===1?imgFiles[0].name:`${imgFiles.length} files selected`;
+  document.getElementById('imgDrop').classList.add('has-file');
+  const list=document.getElementById('imgFileList'); list.innerHTML='';
+  imgFiles.forEach((f,i)=>{
+    const row=document.createElement('div'); row.className='file-row';
+    row.innerHTML=`<span>🖼</span><span class="fname">${f.name}</span><span class="fsize">${fmtSize(f.size)}</span><button class="rm" onclick="rmImg(${i})">✕</button>`;
+    list.appendChild(row);
+  });
+}
+function rmImg(i){
+  imgFiles.splice(i,1);
+  const dt=new DataTransfer(); imgFiles.forEach(f=>dt.items.add(f));
+  document.getElementById('imgInput').files=dt.files;
+  imgFilesSelected();
+  if(!imgFiles.length){document.getElementById('imgLbl').textContent='Click to browse image(s)';document.getElementById('imgDrop').classList.remove('has-file');document.getElementById('imgFileList').innerHTML='';}
+}
+async function convertImages(){
+  if(!imgFiles.length){showErr('imgErr','Please select file(s) first');return;}
+  const fmt=getRadio('imgFmt');
+  const fd=new FormData();
+  imgFiles.forEach(f=>fd.append('files',f));
+  fd.append('format',fmt);
+  fd.append('scale',document.getElementById('imgScale').value||'100');
+  const res=await apiUpload('/api/image/convert',fd,'imgBar','imgPct');
+  if(!res.ok) showErr('imgErr',res.error);
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+//  PDF
+// ══════════════════════════════════════════════════════════════════════════════
+async function pdfConvert(input, endpoint, outExt){
+  if(!input.files.length) return;
+  const fd=new FormData(); fd.append('file',input.files[0]);
+  const res=await apiUpload(`/api/pdf/${endpoint}`,fd,'pdfBar','pdfPct');
+  if(!res.ok) showErr('pdfErr',res.error);
+  input.value=''; // reset so same file can be picked again
+}
 </script>
 </body>
 </html>

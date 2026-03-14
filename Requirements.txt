@@ -1,0 +1,10 @@
+flask
+flask-cors
+gunicorn
+pillow
+pdfplumber
+python-docx
+pdf2docx
+openpyxl
+python-pptx
+img2pdf
