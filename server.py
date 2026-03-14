@@ -8,7 +8,7 @@ from pathlib import Path
 import tempfile, subprocess, shutil, os, json, time
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, origins=["https://converterx-all-in-one.web.app", "http://localhost:5000"])
 app.config["MAX_CONTENT_LENGTH"] = 512 * 1024 * 1024
 
 TEMP_DIR = Path(tempfile.gettempdir()) / "converter_api"
