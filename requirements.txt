@@ -8,3 +8,4 @@ pdf2docx
 openpyxl
 python-pptx
 img2pdf
+ffmpeg-python
