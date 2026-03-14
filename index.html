@@ -320,10 +320,10 @@ input::placeholder{color:var(--text3)}
         <div class="card">
           <div class="pdf-col-title" style="color:var(--accent)">⬆ Convert TO PDF</div>
           <input type="file" id="pdfSrcImg"  style="display:none" accept=".jpg,.jpeg,.png,.webp,.gif,.bmp,.tiff" onchange="pdfConvert(this,'image_to_pdf','.pdf')">
-          <input type="file" id="pdfSrcWord" style="display:none" accept=".docx,.doc" onchange="pdfConvert(this,'office_to_pdf','.pdf')">
-          <input type="file" id="pdfSrcXls"  style="display:none" accept=".xlsx,.xls" onchange="pdfConvert(this,'office_to_pdf','.pdf')">
-          <input type="file" id="pdfSrcPpt"  style="display:none" accept=".pptx,.ppt" onchange="pdfConvert(this,'office_to_pdf','.pdf')">
-          <input type="file" id="pdfSrcTxt"  style="display:none" accept=".txt,.md"   onchange="pdfConvert(this,'text_to_pdf','.pdf')">
+		  <input type="file" id="pdfSrcWord" style="display:none" accept=".docx,.doc" onchange="pdfConvert(this,'to_word_pdf','.pdf')">
+		  <input type="file" id="pdfSrcXls"  style="display:none" accept=".xlsx,.xls" onchange="pdfConvert(this,'to_excel_pdf','.pdf')">
+		  <input type="file" id="pdfSrcPpt"  style="display:none" accept=".pptx,.ppt" onchange="pdfConvert(this,'to_ppt_pdf','.pdf')">
+          <input type="file" id="pdfSrcTxt"  style="display:none" accept=".txt,.md"   onchange="pdfConvert(this,'to_text_pdf','.pdf')">
           <button class="pdf-btn" onclick="document.getElementById('pdfSrcImg').click()">🖼 Image → PDF</button>
           <button class="pdf-btn" onclick="document.getElementById('pdfSrcWord').click()">📄 Word → PDF</button>
           <button class="pdf-btn" onclick="document.getElementById('pdfSrcXls').click()">📊 Excel → PDF</button>

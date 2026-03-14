@@ -69,6 +69,34 @@ def ffmpeg(args, timeout=300):
     except Exception as e: return False, str(e)
 
 # ══════════════════════════════════════════════════════════════════════════════
+
+@app.route("/api/pdf/to_word_pdf", methods=["POST"])
+def word_to_pdf():
+    f = request.files.get("file")
+    if not f: return jsonify({"error":"No file"}), 400
+    src = tmp(Path(f.filename).suffix); out = tmp(".pdf")
+    f.save(src)
+    try:
+        import subprocess
+        result = subprocess.run(
+            ["libreoffice","--headless","--convert-to","pdf","--outdir",str(TEMP_DIR),str(src)],
+            capture_output=True, timeout=60)
+        gen = TEMP_DIR / (src.stem + ".pdf")
+        if gen.exists():
+            return send_file(gen, as_attachment=True,
+                             download_name=Path(f.filename).stem+".pdf")
+        return jsonify({"error":"LibreOffice conversion failed"}), 500
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route("/api/pdf/to_excel_pdf", methods=["POST"])
+def excel_to_pdf():
+    return word_to_pdf()
+
+@app.route("/api/pdf/to_ppt_pdf", methods=["POST"])
+def ppt_to_pdf():
+    return word_to_pdf()
+    
 @app.route("/")
 def health():
     return jsonify({"status":"ok","ffmpeg":HAS_FFMPEG,"pillow":HAS_PIL,
